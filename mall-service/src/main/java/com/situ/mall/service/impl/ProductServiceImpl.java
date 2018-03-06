@@ -84,4 +84,22 @@ public class ProductServiceImpl implements IProductService {
 		return ServerResponse.createError("添加商品失败");
 	}
 
+	@Override
+	public List<String> getTopCategoryName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Product> selectProductsByParentId(Integer categoryId) {
+		// TODO Auto-generated method stub
+		return productMapper.selectProductsByParentId(categoryId);
+	}
+
+	@Override
+	public Product selectProductByPrimaryKey(Integer productId) {
+		// TODO Auto-generated method stub
+		return productMapper.selectProductByPrimaryKey(productId);
+	}
+
 }

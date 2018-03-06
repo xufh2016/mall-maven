@@ -193,7 +193,8 @@
 		#{updateTime,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<select id="pageList" resultMap="BaseResultMap" parameterType="com.situ.mall.vo.ProductSearchCondition">
+	<select id="pageList" resultMap="BaseResultMap"
+		parameterType="com.situ.mall.vo.ProductSearchCondition">
 		select
 		<include refid="Base_Column_List" />
 		from product
@@ -231,6 +232,22 @@
 		resultType="string">
 		SELECT NAME FROM category WHERE id=(SELECT parent_id FROM
 		category WHERE id= (SELECT category_id FROM product WHERE id=#{id}))
+	</select>
+	<!-- 获取二级分类中所有商品名称 -->
+	<select id="selectProductsByParentId" parameterType="int"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM product
+		WHERE category_id = #{categoryId};
+	</select>
+	
+	<select id="selectProductByPrimaryKey" parameterType="int"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM product
+		WHERE id = #{productId};
 	</select>
 
 </mapper>

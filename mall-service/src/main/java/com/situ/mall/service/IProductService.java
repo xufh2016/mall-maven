@@ -29,6 +29,12 @@ public interface IProductService {
 
 	ServerResponse updateProductById(Product product);
 
+	List<String> getTopCategoryName();
+
+	List<Product> selectProductsByParentId(Integer categoryId);
+
+	Product selectProductByPrimaryKey(Integer productId);
+
 /*	Integer getTopCategoryIdById(Integer id);*/
 
 }

@@ -22,4 +22,7 @@ public interface CategoryMapper {
 	List<Category> selectSecondCategory(Integer topCategoryId);
 
 	Integer selectParentCategoryId(Integer categoryId);
+
+	List<Category> selectSecondCategoryList();
+
 }

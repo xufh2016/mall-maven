@@ -41,4 +41,10 @@ public class CategoryServiceImpl implements ICategoryService {
 		return categoryMapper.selectParentCategoryId(categoryId);
 	}
 
+	@Override
+	public List<Category> selectSecondCategoryList() {
+		// TODO Auto-generated method stub
+		return categoryMapper.selectSecondCategoryList();
+	}
+
 }

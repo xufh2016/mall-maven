@@ -31,5 +31,10 @@ public interface ProductMapper {
 
 	String getTopCategoryNameByProductId(Integer id);
 
+
+	List<Product> selectProductsByParentId(Integer categoryId);
+
+	Product selectProductByPrimaryKey(Integer productId);
+
 	//int add(Product product);
 }

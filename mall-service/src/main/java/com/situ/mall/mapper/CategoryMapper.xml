@@ -134,6 +134,12 @@
 		from category
 		where parent_id=0
 	</select>
+	<select id="selectSecondCategoryList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from category
+		where parent_id!=0
+	</select>
 
 	<!-- 查找二级分类 -->
 	<select id="selectSecondCategory" resultMap="BaseResultMap"
@@ -143,12 +149,15 @@
 		from category
 		where parent_id = #{topCategoryId}
 	</select>
-	
-	<select id="getTopCategoryIdById" parameterType="int" >
-		SELECT name FROM category WHERE id=(SELECT parent_id FROM category WHERE id = #{id})
+
+	<select id="getTopCategoryIdById" parameterType="int">
+		SELECT
+		name FROM category WHERE id=(SELECT parent_id FROM category WHERE id =
+		#{id})
 	</select>
-	<select id="selectParentCategoryId" parameterType="int" resultType="int">
-		select parent_id 
+	<select id="selectParentCategoryId" parameterType="int"
+		resultType="int">
+		select parent_id
 		from category
 		where id=#{id}
 	</select>
