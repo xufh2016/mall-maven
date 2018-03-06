@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>华为畅享6S</title>
-<link rel="stylesheet" href="${ctx}/static/front/CSS/index_style.css" />
+<script type="text/javascript" src="${ctx}/static/js/jquery.js"></script>
+<!-- 注意导包 -->
+<link rel="stylesheet" href="${ctx}/static/front/CSS/detail_style.css" />
 </head>
 
 <body>
@@ -93,11 +95,9 @@
 					src="/pic/${product.mainImage}" /></li>
 				<li class="banner_center_left_center">
 					<ul>
-						
+
 						<c:forEach items="${subImages}" var="subImage">
-							<li class="left_right_nav">
-								<img src="/pic/${subImage}"/>
-							</li>
+							<li class="left_right_nav"><img src="/pic/${subImage}" /></li>
 						</c:forEach>
 					</ul>
 				</li>
@@ -161,15 +161,20 @@
 						</span></li>
 					</ul>
 				</li>
-				<li class="right_bottom"><span class="right_txt">
-						数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量&nbsp;&nbsp;&nbsp;&nbsp; </span> <input
-					class="right_bottom_text" type="text" value="1" />
+				<li class="right_bottom">
+					<span class="right_txt">
+						数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量&nbsp;&nbsp;&nbsp;&nbsp; </span> 
+					<input class="right_bottom_text" type="text" value="1" id="amount" />
 					<ul class="right_bottom_btn">
-						<li><input class="right_bottom_substract" type="button"
-							value="-" /> <input class="right_bottom_add" type="button"
-							value="+" /></li>
-					</ul> <input class="right_bottom_addCar" type="button" value="加入购物车" />
-					<span class="right_txt_bottom">
+						<li>
+							<input class="right_bottom_substract" type="button" value="-"  /> 
+							<input class="right_bottom_add" type="button" value="+"  />
+							
+						</li>
+					</ul> 
+					<span >库存：${product.stock}</span>
+					<input class="right_bottom_addCar" type="button" value="加入购物车"
+					onclick="addToCategory()" /> <span class="right_txt_bottom">
 						温馨提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·支持7天无理由退货 </span></li>
 			</ul>
 		</div>
@@ -421,8 +426,7 @@
 			<div class="right_big_bottom">
 				<ul class="right_big_bottom_ul">
 					<li class="end_safeguard">售后保障</li>
-					<li class="server_safeguard"><span class="server">
-							厂家服务<br />
+					<li class="server_safeguard"><span class="server"> 厂家服务<br />
 					</span> <span class="server_detial"> 本产品全国联保，享受三包服务，保质期为：一年质保<br />
 							如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务！<br />
 							（注：如厂商在商品介绍中有售后保障的说明，则此商品按照厂家说明执行售后保障服务。）<br />
@@ -530,6 +534,39 @@
 		京公网安备 110101020011226|京ICP证111033号|食品流通许可证
 		SP1101051110165515（1-1）|营业执照
 	</div>
+	<script type="text/javascript">
+		function addToCategory() {
+			location.href = "${ctx}/cart/getCartPage.shtml?productId=${product.id}&amount="
+					+ $("#amount").val();
+		}
+
+		/*  $("#addToCategory").click(function(){
+				location.href="${ctx}/cart/getCartPage.shtml?productId=${product.id}&amount="+$("#amount").val();
+			});  */
+	</script>
+	<script >
+		$(".right_bottom_substract").click(function(){
+			//var amountval=$("#amount").val();
+			var amountval=parseInt($("#amount").val());
+			if(amountval>0){
+				amountval -=1;
+				$("#amount").val(""+amountval);
+				//alert(amountval);
+			}
+		});
+		$(".right_bottom_add").click(function(){
+			//var amountval=$("#amount").val();
+			var amountval=parseInt($("#amount").val());
+			if(amountval<'${product.stock}'){
+				amountval +=1;
+				$("#amount").val(""+amountval);
+				//alert(amountval);
+			}
+		});
+	</script>
+
+
+
 </body>
 
 </html>
