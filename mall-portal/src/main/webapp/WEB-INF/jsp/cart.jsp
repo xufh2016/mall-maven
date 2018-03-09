@@ -423,7 +423,7 @@
 			//函数一结束
 			
 			
-			//函数2开始
+			//函数2开始，实现加减功能
 			function addOrSub(productId, operator){
 				
 				var delta;
@@ -472,17 +472,29 @@
 			}
 			
 			
-			//blur事件，有bug存在
-			function lostFoucs(productId){
+			//blur事件，有bug存在,amount是输入框的ID
+ 			function lostFoucs(productId){
 				var ret = /^[0-9]+$/;
 				var str = $("#amount"+productId).val(); 
 				if(!ret.test(str)){
 					$("#amount"+productId).val(0);
+					var amount=parseInt($("#amount"+productId).val());
+					var price = $('#price'+productId).attr('price');
+					var totalPrice = amount * price;
+					$('#cartItemTotalPrice'+productId).html(totalPrice);
+				}
+				if(ret.test(str)){
+					var amount=parseInt($("#amount"+productId).val());
+					checkStock(productId);
+					var price = $('#price'+productId).attr('price');
+					var totalPrice = amount * price;
+					$('#cartItemTotalPrice'+productId).html(totalPrice);
 				}
 				checkStock(productId);
 				refreshTotalPrice();
 			}
 			
+			//删除购物项
 			function deleteCartItemById(productId){
 				layer.confirm("确定要删除所选商品吗？",function(){
 					$.ajax({
