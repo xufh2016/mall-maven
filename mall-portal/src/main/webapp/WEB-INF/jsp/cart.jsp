@@ -474,7 +474,8 @@
 			
 			//blur事件，有bug存在,amount是输入框的ID
  			function lostFoucs(productId){
-				var ret = /^[0-9]+$/;
+				var ret = /^-?[0-9]+$/;//"^-?[0-9]+$"　
+				//Math.abs(-1);
 				var str = $("#amount"+productId).val(); 
 				if(!ret.test(str)){
 					$("#amount"+productId).val(0);
@@ -485,7 +486,9 @@
 				}
 				if(ret.test(str)){
 					var amount=parseInt($("#amount"+productId).val());
+					amount=Math.abs(amount);
 					checkStock(productId);
+					$("#amount"+productId).val(amount);
 					var price = $('#price'+productId).attr('price');
 					var totalPrice = amount * price;
 					$('#cartItemTotalPrice'+productId).html(totalPrice);
