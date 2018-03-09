@@ -356,6 +356,14 @@
 			COPYRIGHT 2010-2017 北京创锐文化传媒有限公司 JUMEI.COM 保留一切权利. 客服热线：400-123-888888<br /> 
 			京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
+		<!-- 添加登录的弹窗  开始 -->
+		
+		
+		
+		
+		
+		<!-- 添加登录的弹窗  结束 -->
+		
 		<script>
 			layui.use(['layer'], function(){
 			  var layer = layui.layer;
@@ -396,12 +404,10 @@
 				}
 			});
 			
-			
-			//函数一开始
-			//第一个函数
 			//检查库存量
 			function checkStock(productId){
 				$.ajax({
+					//async:false;当为false时，同步执行，true时异步执行，默认为true
 					url:'${ctx}/product/getProductStock.shtml',// 请求此地址获取该商品的库存量
 					data:{'productId':productId}, //stock
 					type:'post',
@@ -420,8 +426,6 @@
 					}
 				});
 			}
-			//函数一结束
-			
 			
 			//函数2开始，实现加减功能
 			function addOrSub(productId, operator){
