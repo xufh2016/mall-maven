@@ -102,4 +102,10 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.selectProductByPrimaryKey(productId);
 	}
 
+	@Override
+	public Integer getProductStock(Integer productId) {
+		// TODO Auto-generated method stub
+		return productMapper.getProductStock( productId);
+	}
+
 }

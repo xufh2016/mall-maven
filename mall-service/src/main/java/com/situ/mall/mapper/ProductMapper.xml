@@ -249,5 +249,14 @@
 		FROM product
 		WHERE id = #{productId};
 	</select>
+	
+	<!-- 获取商品的库存量 -->
+	<select id="getProductStock" parameterType="int"
+		resultType="int">
+		SELECT
+		stock
+		FROM product
+		WHERE id = #{productId};
+	</select>
 
 </mapper>

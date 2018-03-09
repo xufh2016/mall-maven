@@ -173,8 +173,8 @@
 						</li>
 					</ul> 
 					<span >库存：${product.stock}</span>
-					<input class="right_bottom_addCar" type="button" value="加入购物车"
-					onclick="addToCategory()" /> <span class="right_txt_bottom">
+					<input class="right_bottom_addCar" type="button" value="加入购物车" onclick="addToCart()" />
+					 <span class="right_txt_bottom">
 						温馨提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·支持7天无理由退货 </span></li>
 			</ul>
 		</div>
@@ -535,14 +535,24 @@
 		SP1101051110165515（1-1）|营业执照
 	</div>
 	<script type="text/javascript">
-		function addToCategory() {
-			location.href = "${ctx}/cart/getCartPage.shtml?productId=${product.id}&amount="
-					+ $("#amount").val();
+		layui.use(['layer'], function(){
+		    var layer = layui.layer;
+		});
+		function addToCart() {
+			$.ajax({
+				url : '${ctx}/cart/addOrUpdateCart.shtml',
+				data : {'productId' : '${product.id}', 'amount' : $("#amount").val(),'isChecked':true},
+				type : 'POST',
+				dataType : 'json',
+				success : function(jsonObj) {
+					if(jsonObj.code == util.SUCCESS) {
+						mylayer.successUrl(jsonObj.msg, '${ctx}/cart/getCartPage.shtml');
+					} else {
+						mylayer.errorMsg(jsonObj.msg);
+					}
+				}
+			});
 		}
-
-		/*  $("#addToCategory").click(function(){
-				location.href="${ctx}/cart/getCartPage.shtml?productId=${product.id}&amount="+$("#amount").val();
-			});  */
 	</script>
 	<script >
 		$(".right_bottom_substract").click(function(){

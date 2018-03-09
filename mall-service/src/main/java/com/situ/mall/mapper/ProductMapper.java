@@ -36,5 +36,7 @@ public interface ProductMapper {
 
 	Product selectProductByPrimaryKey(Integer productId);
 
+	Integer getProductStock(Integer productId);
+
 	//int add(Product product);
 }

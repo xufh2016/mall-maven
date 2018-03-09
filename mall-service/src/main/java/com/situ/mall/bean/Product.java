@@ -37,7 +37,17 @@ public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime) {
+    
+    /*public Product(Integer id, String name, String mainImage, BigDecimal price,Integer stock ) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.mainImage = mainImage;
+		this.price = price;
+		this.stock = stock;
+	}*/
+
+	public Product(Integer id, Integer categoryId, String name, String subtitle, String mainImage, String subImages, String detail, BigDecimal price, Integer stock, Integer status, Date createTime, Date updateTime) {
         this.id = id;
         this.categoryId = categoryId;
         this.name = name;

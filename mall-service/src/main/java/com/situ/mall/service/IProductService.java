@@ -16,6 +16,7 @@ public interface IProductService {
 
 	/**
 	 * 查看单条商品信息
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -35,6 +36,6 @@ public interface IProductService {
 
 	Product selectProductByPrimaryKey(Integer productId);
 
-/*	Integer getTopCategoryIdById(Integer id);*/
-
+	/* Integer getTopCategoryIdById(Integer id); */
+	Integer getProductStock(Integer productId);
 }
