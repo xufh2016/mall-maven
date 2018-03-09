@@ -425,7 +425,6 @@
 			
 			//函数2开始，实现加减功能
 			function addOrSub(productId, operator){
-				
 				var delta;
 				if(operator=='+') {
 					delta = 1;
@@ -483,18 +482,39 @@
 					var price = $('#price'+productId).attr('price');
 					var totalPrice = amount * price;
 					$('#cartItemTotalPrice'+productId).html(totalPrice);
+					refreshTotalPrice();
 				}
-				if(ret.test(str)){
+				
+				if(ret.test(str)){//checkStock(productId)方法是异步请求，有bug存在，
 					var amount=parseInt($("#amount"+productId).val());
 					amount=Math.abs(amount);
-					checkStock(productId);
-					$("#amount"+productId).val(amount);
-					var price = $('#price'+productId).attr('price');
-					var totalPrice = amount * price;
-					$('#cartItemTotalPrice'+productId).html(totalPrice);
+					$.ajax({
+						url:'${ctx}/product/getProductStock.shtml',// 请求此地址获取该商品的库存量
+						data:{'productId':productId}, //stock
+						type:'post',
+						dataType:'json',
+						success : function(jsonData){ //{'a':'11'} 
+						//jsonData.data;
+							var tempstock=jsonData.stock;
+							//alert("tempstock:"+tempstock);
+							var stock=parseInt(tempstock);
+							//var totalamount=parseInt($('#amount'+productId).val());
+							if(amount>stock){
+								$('#amount'+productId).val(stock);
+								var price = $('#price'+productId).attr('price');
+								var totalPrice = stock * price;
+								$('#cartItemTotalPrice'+productId).html(totalPrice);
+								refreshTotalPrice();
+							}else{
+								$('#amount'+productId).val(amount);
+								var price = $('#price'+productId).attr('price');
+								var totalPrice = amount * price;
+								$('#cartItemTotalPrice'+productId).html(totalPrice);
+								refreshTotalPrice();
+							} 
+						}
+					});
 				}
-				checkStock(productId);
-				refreshTotalPrice();
 			}
 			
 			//删除购物项
