@@ -3,6 +3,11 @@ package com.situ.mall.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 订单的信息
+ * @author Administrator
+ *
+ */
 public class Shipping implements Serializable {
     private Integer id;
 

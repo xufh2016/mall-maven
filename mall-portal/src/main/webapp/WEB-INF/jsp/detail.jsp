@@ -561,7 +561,6 @@
 			if(amountval>0){
 				amountval -=1;
 				$("#amount").val(""+amountval);
-				//alert(amountval);
 			}
 		});
 		$(".right_bottom_add").click(function(){
@@ -570,7 +569,6 @@
 			if(amountval<'${product.stock}'){
 				amountval +=1;
 				$("#amount").val(""+amountval);
-				//alert(amountval);
 			}
 		});
 	</script>

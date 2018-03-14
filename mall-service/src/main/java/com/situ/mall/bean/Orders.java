@@ -3,8 +3,14 @@ package com.situ.mall.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-public class Order implements Serializable {
+/**
+ * 订单bean
+ * @author Administrator
+ *
+ */
+public class Orders implements Serializable {
     private Integer id;
 
     private Long orderNo;
@@ -32,10 +38,33 @@ public class Order implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+    
+    private List<OrderItem> list;
 
     private static final long serialVersionUID = 1L;
+    
+    public Orders(Integer id, Long orderNo, Integer userId, Integer shippingId, BigDecimal payment, Integer paymentType,
+			Integer postage, Integer status, Date paymentTime, Date sendTime, Date endTime, Date closeTime,
+			Date createTime, Date updateTime, List<OrderItem> list) {
+		super();
+		this.id = id;
+		this.orderNo = orderNo;
+		this.userId = userId;
+		this.shippingId = shippingId;
+		this.payment = payment;
+		this.paymentType = paymentType;
+		this.postage = postage;
+		this.status = status;
+		this.paymentTime = paymentTime;
+		this.sendTime = sendTime;
+		this.endTime = endTime;
+		this.closeTime = closeTime;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.list = list;
+	}
 
-    public Order(Integer id, Long orderNo, Integer userId, Integer shippingId, BigDecimal payment, Integer paymentType, Integer postage, Integer status, Date paymentTime, Date sendTime, Date endTime, Date closeTime, Date createTime, Date updateTime) {
+	public Orders(Integer id, Long orderNo, Integer userId, Integer shippingId, BigDecimal payment, Integer paymentType, Integer postage, Integer status, Date paymentTime, Date sendTime, Date endTime, Date closeTime, Date createTime, Date updateTime) {
         this.id = id;
         this.orderNo = orderNo;
         this.userId = userId;
@@ -52,7 +81,15 @@ public class Order implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Order() {
+    public List<OrderItem> getList() {
+		return list;
+	}
+
+	public void setList(List<OrderItem> list) {
+		this.list = list;
+	}
+
+	public Orders() {
         super();
     }
 
@@ -68,8 +105,8 @@ public class Order implements Serializable {
         return orderNo;
     }
 
-    public void setOrderNo(Long orderNo) {
-        this.orderNo = orderNo;
+    public void setOrderNo(Long string) {
+        this.orderNo = string;
     }
 
     public Integer getUserId() {

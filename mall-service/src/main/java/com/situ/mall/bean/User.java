@@ -43,7 +43,11 @@ public class User implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public User(String username, Integer password) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
         return id;
     }
 

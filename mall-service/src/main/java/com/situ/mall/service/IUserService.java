@@ -2,8 +2,6 @@ package com.situ.mall.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.situ.mall.bean.User;
 import com.situ.mall.common.ServerResponse;
 

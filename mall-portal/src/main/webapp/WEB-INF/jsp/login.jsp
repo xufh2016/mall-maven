@@ -14,7 +14,7 @@
 	<body>
 		<div class="top_center">
 			<div class="left">
-				<img src="img/LOGO.png" />
+				<img src="${ctx}/static/img/LOGO.png" />
 			</div>
 			<div class="right">
 				<ul>
@@ -26,7 +26,7 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="banner">
-			<img class="banner_img" src="img/beijing.png" />
+			<img class="banner_img" src="${ctx}/static/img/beijing.png" />
 			<div class="banner_center">
 				<div class="login">
 					<form>

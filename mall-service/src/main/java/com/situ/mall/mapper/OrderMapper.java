@@ -1,17 +1,29 @@
 package com.situ.mall.mapper;
 
-import com.situ.mall.bean.Order;
+import java.util.List;
+
+import org.springframework.core.annotation.Order;
+
+import com.situ.mall.bean.Orders;
 
 public interface OrderMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Order record);
+    int insert(Orders record);
 
-    int insertSelective(Order record);
+    int insertSelective(Orders record);
 
-    Order selectByPrimaryKey(Integer id);
+    Orders selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Order record);
+    int updateByPrimaryKeySelective(Orders record);
 
-    int updateByPrimaryKey(Order record);
+    int updateByPrimaryKey(Orders record);
+
+    /**
+     * 根据用户的Id查询该用户的订单项
+     * @param userId用户Id
+     * @return 该用户所有订单的集合
+     */
+	List<Orders> selectOrdersByUserid(Integer userId);
+
 }

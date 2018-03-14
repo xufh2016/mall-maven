@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ include file="../common/header.jsp"%>
-
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="UTF-8">
-		<title>靓淘网-登录</title>
-		<link rel="stylesheet" href="${ctx}/static/front/CSS/index_style.css" />
+		<title>靓淘网-注册</title>
+		<link rel="stylesheet" type="text/css" href="${ctx}/static/front/CSS/register_style.css" />
 	</head>
 
 	<body>
 		<div class="top_center">
 			<div class="left">
-				<img src="img/LOGO.png" />
+				<img src="${ctx}/static/img/LOGO.png" />
 			</div>
 			<div class="right">
 				<ul>
@@ -26,38 +25,40 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="banner">
-			<img class="banner_img" src="img/beijing.png" />
+			<img class="banner_img" src="${ctx}/static/img/110.png" />
 			<div class="banner_center">
-				<div class="login">
-					<form>
+				<form>
+					<div class="register">
 						<ul>
-							<li class="login_title_1">
-								<a href="">密码登录</a>
-
-							</li>
-							<li class="login_title_2">
-								<a href="">扫码登录</a>
+							<li class="register_title_1">
+								<span style="font-size: 20px;color: #F41443;font-weight: 900;">
+									用户注册
+								</span>
+								<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已有账号<a style="color: #F41443;" class="here" href="">在此登录</a></span>
 							</li>
 							<li>
-								<input class="login_user" type="text" placeholder="会员名/邮箱/手机号" />
-								<input class="login_password" type="password" placeholder="密码" />
-								<input class="login_btn" type="button" value="登录" />
+								<input class="register_user" type="text" placeholder="会员名/邮箱/手机号" />
 							</li>
-							<li class="login_select">
-								<a class="weibo" href="">微博登录</a>
-								<a class="zhifubao" href="">支付宝登录</a><br />
+							<li>
+								<input class="register_note" placeholder="短信校验码"/>
+								<input class="register_note_get" type="button" value="获取短信验证码" />
 							</li>
-							<li class="renmenber_user">
-								<input type="checkbox" value="remer_user" id="remer_user" />
-								<label for="remer_user">记住用户名</label>
+							<li>
+								<input class="register_password" type="password" placeholder="密码" />
 							</li>
-							<li class="login_bottom">
-								<a href="">忘记密码</a>
-								<a href="">免费注册</a>
+							<li>
+								<input class="register_repassword" type="text" placeholder="重置密码" />
+							</li>
+							<li>
+								<input class="register_finish" type="button" value="同意协议并注册" />
+							</li>
+							<li class="register_bottom">
+								<a href=""><span style="color: #F41443;">《靓淘优选用户协议》</span></a>
 							</li>
 						</ul>
-					</form>
-				</div>
+
+					</div>
+				</form>
 			</div>
 			<div class="clearfix"></div>
 		</div>

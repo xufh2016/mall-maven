@@ -216,8 +216,8 @@
                 });
             });
             
-          //富文本编辑器
-          myKindEditor = KindEditor.create('#form_add[name=detail]', kingEditorParams);
+            //富文本编辑器
+            myKindEditor = KindEditor.create('#form_add[name=detail]', kingEditorParams);
         });
 	</script>
 </body>

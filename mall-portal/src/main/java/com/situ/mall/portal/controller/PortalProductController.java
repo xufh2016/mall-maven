@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.mall.bean.Product;
-import com.situ.mall.service.ICategoryService;
 import com.situ.mall.service.IProductService;
 
 @Controller
@@ -20,9 +19,6 @@ public class PortalProductController {
 
 	@Autowired
 	private IProductService productService;
-
-	@Autowired
-	private ICategoryService categoryService;
 
 	@RequestMapping("/getProductListPage")
 	public String getProductListPage(Integer categoryId, Model model) {

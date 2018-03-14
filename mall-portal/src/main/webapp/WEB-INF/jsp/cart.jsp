@@ -9,6 +9,7 @@
 		<meta charset="UTF-8">
 		<title>靓淘网_购物车</title>
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/front/CSS/cart_style.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/static/front/CSS/login_style.css" />
 		<script type="text/javascript" src="${ctx}/static/js/jquery.js"></script>
 	</head>
 
@@ -105,7 +106,7 @@
 						</span>
 						<span class="span3">
 							&nbsp;&nbsp;去凑单&gt;
-						</span>
+						</span> 
 					</p>
 				</div>
 				<div class="car_2_bottom">
@@ -145,7 +146,6 @@
 							<input class="car_ul_btn2" type="button" value="+" onclick="addOrSub(${cartItemVo.product.id}, '+')"/>
 						</li>
 						<li class="money">
-						<%-- id="cartItemTotalPrice${cartItemVo.product.id}" --%>
 							<span style="color: #F41443;" id="cartItemTotalPrice${cartItemVo.product.id}">
 								${cartItemVo.product.price*cartItemVo.amount}
 							</span>
@@ -163,7 +163,7 @@
 			
 		</div>
 		<!--立即结算开始 -->
-		<div class="total">
+			<div class="total">
 				<ul style="color: #666666;margin-top: 10px;margin-bottom: 10px;">
 					<li style="margin-left: 16px;margin-right: 8px;">
 						<input type="checkbox" id="selectAllOrNone" />
@@ -173,7 +173,7 @@
 						<span id="totalPrice" style="color: #F41443;">¥7175</span>
 					</li>
 					<li class="total_right">
-						<a href="">立即结算</a>
+						<a onclick="toAddOrder()">立即结算</a>
 					</li>
 				</ul>
 			</div>
@@ -359,8 +359,37 @@
 		<!-- 添加登录的弹窗  开始 -->
 		
 		
-		
-		
+		<!-- login弹出层开始 -->
+		<div class="login" style="display:none" id="loginForm">
+			<form id="login-form">
+				<ul>
+					<li class="login_title_1">
+						<a href="">密码登录</a>
+	
+					</li>
+					<li class="login_title_2">
+						<a href="">扫码登录</a>
+					</li>
+					<li>
+						<input id="username" name="username" class="login_user" type="text" placeholder="会员名/邮箱/手机号" />
+						<input id="password" name="password" class="login_password" type="password" placeholder="密码" />
+						<input class="login_btn" type="button" onclick="login()" value="登录" />
+					</li>
+					<li class="login_select">
+						<a class="weibo" href="">微博登录</a>
+						<a class="zhifubao" href="">支付宝登录</a><br />
+					</li>
+					<li class="renmenber_user">
+						<input type="checkbox" value="remer_user" id="remer_user" />
+						<label for="remer_user">记住用户名</label>
+					</li>
+					<li class="login_bottom">
+						<a onclick="forgetPassword()">忘记密码</a>
+						<a onclick="toRegisterPage()">免费注册</a>
+					</li>
+				</ul>
+			</form>
+		</div>
 		
 		<!-- 添加登录的弹窗  结束 -->
 		
@@ -368,6 +397,92 @@
 			layui.use(['layer'], function(){
 			  var layer = layui.layer;
 			});
+			
+			
+			
+			//跳转到注册页面
+			function toRegisterPage(){
+				window.location.href = '${ctx}/user/toRegisterPage.shtml';
+			/* 	$.ajax({
+					url:'${ctx}/user/toRegisterPage.shtml',
+					dataType:'json',
+					data:'',
+					Type:'POST',
+					success:function(jsonData){
+					}
+				}); */
+			}
+			
+			
+			//跳转到结算页面
+			function toAddOrder(){
+				//获得总共的checkbox的数量
+				var checkboxes=$('input[name=selectCheckbox]');
+				var uncheckboxes=$('input[name=selectCheckbox]').not("input:checked");
+				var user='${CURRENT_USER}';
+				if(checkboxes.length==uncheckboxes.length){
+					layer.open({
+						title: '在线调试',
+						content: '您尚未选择任何商品'
+					});
+					//alert("您尚未选择任何商品");
+				}else{
+						if(user==''){
+							layer.open({
+								type : 1,
+								title : '登录',
+								offset : '50px',
+								area : ['400px','500px'],
+								content : $('#loginForm')
+							});
+						}else{
+							window.location.href = '${ctx}/order/getOrderPage.shtml';
+						}
+				}
+			}
+			//登录验证
+			function login(){
+				var username=$("#username").val();
+				var password=$("#password").val();
+				//1.1、验证用户名是否为空
+	    		if(util.isNull(username)) {
+	    			mylayer.errorMsg("用户名不能为空");
+	    			return;
+	    		}
+	    		
+	    		//1.2、是否合法：4-8数字或字母
+	    		if(!isUsernameValid(username)) {
+	    			mylayer.errorMsg("用户名不合法，4-8数字或字母");
+	    			return;
+	    		}
+	    		
+	    		//2、密码不能为空
+	    		if(util.isNull(password)) {
+	    			mylayer.errorMsg("密码不能为空");
+	    			return;
+	    		}
+	    		$.ajax({
+	    			url:"${ctx}/user/login.shtml",
+	    			type:'POST',
+	    			dataType:'json',
+	    			data:$("#login-form").serialize(),
+	    			success:function(data){
+	    				if(data.code == util.SUCCESS) {
+	    					mylayer.success(data.msg);
+	    					window.location.href = '${ctx}/order/getOrderPage.shtml';
+	    				} else {
+	    					mylayer.errorMsg(data.msg);
+	    				}
+	    			}
+	    		});
+			}
+			
+			//检查用户名是否匹配
+			function isUsernameValid(value) {
+	    		var pattern = /^[0-9a-zA-Z]{4,8}$/;
+	    		return pattern.test(value);
+	    	} 
+			
 			
 			//为购物项中的checkbox添加点击事件,用来监听购物项中的所有checkbox的checked=true时，设置Id=“selectAllOrNone”的checked=true
 			function checkSelected(){
@@ -448,8 +563,11 @@
 								//当num<1时，直接将num设为0
 								num=0;
 								$('#amount'+productId).val(0);
-							}else{
-							    $('#amount'+productId).val(num);
+							}else{//当输入框中的值>0的时候
+								//发送ajax请求，重新获取stock，并进行最大最大数的判断，如果amount大于stock，设置为stock，反之设为amount
+							   
+								
+								$('#amount'+productId).val(num);
 							}
 							var price = $('#price'+productId).attr('price');
 							var totalPrice = num * price;
@@ -492,6 +610,7 @@
 				if(ret.test(str)){//checkStock(productId)方法是异步请求，有bug存在，
 					var amount=parseInt($("#amount"+productId).val());
 					amount=Math.abs(amount);
+					//发送ajax请求，获取amount的值进行运算
 					$.ajax({
 						url:'${ctx}/product/getProductStock.shtml',// 请求此地址获取该商品的库存量
 						data:{'productId':productId}, //stock

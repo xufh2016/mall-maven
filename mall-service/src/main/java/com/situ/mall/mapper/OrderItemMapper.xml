@@ -20,6 +20,16 @@
     id, user_id, order_no, product_id, product_name, product_image, current_unit_price, 
     quantity, total_price, create_time, update_time
   </sql>
+  
+  
+  <select id="selectItemsByUserid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where user_id = #{userId}
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

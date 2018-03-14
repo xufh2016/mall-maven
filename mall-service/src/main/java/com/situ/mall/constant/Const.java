@@ -22,5 +22,8 @@ public class Const {
 		int CHECKED = 1;
 		int UNCHECKED = 0;
 	}
-
+	
+	public interface CookieName{
+		String CART_COOKIE = "cartCookie";
+	}
 }
