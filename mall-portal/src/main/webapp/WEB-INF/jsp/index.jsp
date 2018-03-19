@@ -20,7 +20,7 @@
 			</div>
 			<div class="right">
 				<ul>
-					<li><a class="login" href="${ctx}/jsp/login.shtml"
+					<li><a class="login" onclick="getLoginPage()"
 						target="_blank">请登录</a></li>
 					<li><a href="register.html" target="_blank">快速注册</a></li>
 					<li><a class="collect" href="">我的收藏</a></li>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="right">
 			<div class="car">
-				<a class="car_pic" href="cart.html" target="_blank">去购物车结算</a>
+				<a class="car_pic" onclick="toCartPage()" target="_blank">去购物车结算</a>
 			</div>
 			<div class="narrow"></div>
 		</div>
@@ -522,34 +522,14 @@
 			$(".circle li").removeClass("current").eq(m).addClass("current");
 			$(".banner_box .banner").hide().eq(m).show();
 		})
+		function getLoginPage(){ 
+			window.location.href="${ctx}/user/getLoginPage.shtml";
+		}
+		function toCartPage(){
+			window.location.href="${ctx}/cart/getCartPage.shtml";
+		}
 
-		/* 	$("#topCategory",function(){
-				//html=html();
-				var html='<span id="topCateryId" > </span>';
-				for(var i=0;i<${fn:length(dataList)};i++){
-					console.log(i);
-					html+='<span id="topCateryId" >'+${dataList[i].name}+' </span>';
-				}
-				this.html(html);
-			}); */
-
-		/*			
-				$(".banner_box .banner").hide().eq(0).show();
-				$(".circle li").click(
-					function(){
-						var i = 0;
-						i = $(this).index();
-						$(".banner_box .banner").hide().eq(i).show();
-						
-					}
-				)
-				$(".circle li").click(
-					function(){
-						var n = 0;
-						n = $(this).index();
-						$(".circle li").removeClass("current").eq(n).addClass("current");
-					}
-				)*/
+		
 	</script>
 </body>
 

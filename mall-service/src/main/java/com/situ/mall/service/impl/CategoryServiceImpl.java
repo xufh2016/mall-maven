@@ -47,4 +47,14 @@ public class CategoryServiceImpl implements ICategoryService {
 		return categoryMapper.selectSecondCategoryList();
 	}
 
+	@Override
+	public ServerResponse dataAnalysis() {
+		// TODO Auto-generated method stub
+		List<Category> list = categoryMapper.dataAnalysis();
+		if (list == null || list.size() == 0) {
+			return ServerResponse.createError("暂无数据");
+		}
+		return ServerResponse.createSuccess("数据查找成功", list);
+	}
+
 }

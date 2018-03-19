@@ -34,5 +34,10 @@ public class UserController {
 	public String toRegisterPage() {
 		return "register";
 	}
+	
+	@RequestMapping("/getLoginPage")
+	public String getLoginPage() {
+		return "login";
+	}
 
 }

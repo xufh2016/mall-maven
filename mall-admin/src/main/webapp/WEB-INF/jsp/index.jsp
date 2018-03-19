@@ -18,10 +18,12 @@
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="${ctx}/static/back/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"> 
+    <link href="${ctx}/static/back/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="${ctx}/static/back/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="${ctx}/static/back/css/animate.css" rel="stylesheet">
     <link href="${ctx}/static/back/css/style.css?v=4.1.0" rel="stylesheet">
+    
 </head>
 
 
@@ -63,6 +65,18 @@
                         </a>
                     </li>
                     <li>
+                        <a class="J_menuItem" href="${ctx}/order/getOrderListPage.action">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">订单列表</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="${ctx}/category/getCategoryPage.action">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">分类列表</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
                             <span class="nav-label">统计图表</span>
@@ -70,10 +84,10 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
+                                <a class="J_menuItem" href="${ctx}/category/getDataAnalysisPage.action">分类统计</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="graph_flot.html">Flot</a>
+                                <a class="J_menuItem" href="${ctx}/category/getCircleDataAnalysisPage.action">分类统计（饼型图）</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="graph_morris.html">Morris.js</a>
@@ -466,7 +480,8 @@
 
     <!-- 第三方插件 -->
     <script src="${ctx}/static/back/js/plugins/pace/pace.min.js"></script>
-
+	<script type="text/javascript" src="${ctx}/static/back/js/echarts .js"></script>
+	
 </body>
 
 </html>

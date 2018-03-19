@@ -152,7 +152,8 @@
 
 	<select id="getTopCategoryIdById" parameterType="int">
 		SELECT
-		name FROM category WHERE id=(SELECT parent_id FROM category WHERE id =
+		name FROM
+		category WHERE id=(SELECT parent_id FROM category WHERE id =
 		#{id})
 	</select>
 	<select id="selectParentCategoryId" parameterType="int"
@@ -161,5 +162,14 @@
 		from category
 		where id=#{id}
 	</select>
+
+	<select id="dataAnalysis" resultType="CategoryCountVO">
+		SELECT c.name as
+		name,COUNT(*) as count
+		FROM product AS p INNER JOIN category AS c
+		ON p.category_id = c.id
+		GROUP BY p.category_id;
+	</select>
+
 
 </mapper>

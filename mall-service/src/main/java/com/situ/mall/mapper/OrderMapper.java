@@ -2,8 +2,6 @@ package com.situ.mall.mapper;
 
 import java.util.List;
 
-import org.springframework.core.annotation.Order;
-
 import com.situ.mall.bean.Orders;
 
 public interface OrderMapper {
@@ -25,5 +23,7 @@ public interface OrderMapper {
      * @return 该用户所有订单的集合
      */
 	List<Orders> selectOrdersByUserid(Integer userId);
+
+	List<Orders> orderList(Integer page, Integer limit);
 
 }

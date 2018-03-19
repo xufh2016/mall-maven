@@ -60,7 +60,7 @@
 		<div class="menu_center">
 			<ul class="menu_ul">
 				<li><a class="all_a" href="">全部商品分类</a></li>
-				<li><a href="index.html" target="_blank">商城首页</a></li>
+				<li><a onclick="index()" target="_blank">商城首页</a></li>
 				<li><a href="">手机首页</a></li>
 				<li><a href="">新机首发</a></li>
 				<li><a href="">手机社区</a></li>
@@ -164,7 +164,7 @@
 				<li class="right_bottom">
 					<span class="right_txt">
 						数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量&nbsp;&nbsp;&nbsp;&nbsp; </span> 
-					<input class="right_bottom_text" type="text" value="1" id="amount" />
+					<input class="right_bottom_text" type="text" value="1" id="amount"  onblur="lostFoucs()"/>
 					<ul class="right_bottom_btn">
 						<li>
 							<input class="right_bottom_substract" type="button" value="-"  /> 
@@ -555,6 +555,7 @@
 		}
 	</script>
 	<script >
+		//减操作
 		$(".right_bottom_substract").click(function(){
 			//var amountval=$("#amount").val();
 			var amountval=parseInt($("#amount").val());
@@ -563,6 +564,7 @@
 				$("#amount").val(""+amountval);
 			}
 		});
+		//加操作
 		$(".right_bottom_add").click(function(){
 			//var amountval=$("#amount").val();
 			var amountval=parseInt($("#amount").val());
@@ -571,6 +573,46 @@
 				$("#amount").val(""+amountval);
 			}
 		});
+		
+		//blur事件，有bug存在,amount是输入框的ID
+		function lostFoucs(){
+			var ret = /^-?[0-9]+$/;//"^-?[0-9]+$"　
+			//Math.abs(-1);
+			var str = $("#amount").val(); 
+			if(!ret.test(str)){
+				$("#amount").val(0);
+				var amount=parseInt($("#amount").val());
+			}
+			
+			if(ret.test(str)){//checkStock(productId)方法是异步请求，有bug存在，
+				var amount=parseInt($("#amount").val());
+				amount=Math.abs(amount);
+				//发送ajax请求，获取amount的值进行运算
+				$.ajax({
+					url:'${ctx}/product/getProductStock.shtml',// 请求此地址获取该商品的库存量
+					data:{'productId':'${product.id}'}, //stock
+					type:'post',
+					dataType:'json',
+					success : function(jsonData){ //{'a':'11'} 
+					//jsonData.data;
+						var tempstock=jsonData.stock;
+						//alert("tempstock:"+tempstock);
+						var stock=parseInt(tempstock);
+						//var totalamount=parseInt($('#amount'+productId).val());
+						if(amount>stock){
+							$('#amount').val(stock);
+						
+						}else{
+							$('#amount').val(amount);
+						} 
+					}
+				});
+			}
+		}
+		function index(){
+			window.location.href="${ctx}/index.shtml"
+		}
+		
 	</script>
 
 

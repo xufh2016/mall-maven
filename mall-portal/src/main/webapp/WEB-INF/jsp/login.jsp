@@ -8,13 +8,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>靓淘网-登录</title>
-		<link rel="stylesheet" href="${ctx}/static/front/CSS/index_style.css" />
+		<link rel="stylesheet" href="${ctx}/static/front/CSS/login_style.css" />
+		<script type="text/javascript" src="${ctx}/static/js/jquery.js"></script>
 	</head>
 
 	<body>
 		<div class="top_center">
 			<div class="left">
-				<img src="${ctx}/static/img/LOGO.png" />
+				<img src="${ctx}/static/front/img/LOGO.png" />
 			</div>
 			<div class="right">
 				<ul>
@@ -26,10 +27,10 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="banner">
-			<img class="banner_img" src="${ctx}/static/img/beijing.png" />
+			<img class="banner_img" src="${ctx}/static/front/img/beijing.png" />
 			<div class="banner_center">
 				<div class="login">
-					<form>
+					<form id="loginform">
 						<ul>
 							<li class="login_title_1">
 								<a href="">密码登录</a>
@@ -39,9 +40,9 @@
 								<a href="">扫码登录</a>
 							</li>
 							<li>
-								<input class="login_user" type="text" placeholder="会员名/邮箱/手机号" />
-								<input class="login_password" type="password" placeholder="密码" />
-								<input class="login_btn" type="button" value="登录" />
+								<input class="login_user" name="username"   type="text" placeholder="会员名/邮箱/手机号" />
+								<input class="login_password" name="password" type="password" placeholder="密码" />
+								<input class="login_btn" type="button" value="登录" onclick="login()"/>
 							</li>
 							<li class="login_select">
 								<a class="weibo" href="">微博登录</a>
@@ -118,6 +119,64 @@
 		<div class="copyright">
 			COPYRIGHT 2010-2017 北京创锐文化传媒有限公司 JUMEI.COM 保留一切权利. 客服热线：400-123-888888<br /> 京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
+		<script>
+		layui.use(['layer'], function(){
+			  var layer = layui.layer;
+			});
+		
+		//添加失去焦点事件
+		/* function checksession(){
+			//var username=$("#username").val();
+			var seesionusername='${user.username}';
+			if($.trim(seesionusername) != '')
+				window.location.href = '${ctx}/index.shtml';	
+		} */
+		//登录验证
+		function login(){
+			var seesionusername='${user.username}';
+			if($.trim(seesionusername) == ''){
+				var username=$("#username").val();
+				var password=$("#password").val();
+				//1.1、验证用户名是否为空
+	    		if(util.isNull(username)) {
+	    			mylayer.errorMsg("用户名不能为空");
+	    			return;
+	    		}
+	    		//1.2、是否合法：4-8数字或字母
+	    		if(!isUsernameValid(username)) {
+	    			mylayer.errorMsg("用户名不合法，4-8数字或字母");
+	    			return;
+	    		}
+	    		
+	    		//2、密码不能为空
+	    		if(util.isNull(password)) {
+	    			mylayer.errorMsg("密码不能为空");
+	    			return;
+	    		}
+	    		$.ajax({
+	    			url:"${ctx}/user/login.shtml",
+	    			type:'POST',
+	    			dataType:'json',
+	    			data:$("#loginform").serialize(),
+	    			success:function(data){
+	    				if(data.code == util.SUCCESS) {
+	    					mylayer.success(data.msg);
+	    					window.location.href = '${ctx}/index.shtml';
+	    				} else {
+	    					mylayer.errorMsg(data.msg);
+	    				}
+	    			}
+	    		});
+			}else{
+				mylayer.success("已经登录了！！！！！");
+				window.location.href = '${ctx}/index.shtml';
+			}
+		
+		}
+		
+		</script>
+		
+		
 	</body>
 
 </html>

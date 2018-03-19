@@ -25,4 +25,6 @@ public interface CategoryMapper {
 
 	List<Category> selectSecondCategoryList();
 
+	List<Category> dataAnalysis();
+
 }

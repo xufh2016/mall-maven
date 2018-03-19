@@ -15,4 +15,6 @@ public interface ICategoryService {
 
 	List<Category> selectSecondCategoryList();
 
+	ServerResponse dataAnalysis();
+
 }

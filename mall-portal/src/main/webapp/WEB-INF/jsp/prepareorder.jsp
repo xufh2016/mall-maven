@@ -473,7 +473,8 @@
 					$("#redisplayName").html(receiverName);
 					$("#redisplayPhone").html(receiverPhone);
 				}
-				function addOrder(){//生成订单并结算
+				function addOrder(){//生成订单
+					
 					//<input type="hidden" name="shippingId" value="${shipping.id}"/>
 					var shippingId=$("#shippingId").val();
 					$.ajax({
