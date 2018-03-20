@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.mall.bean.Product;
 import com.situ.mall.service.IProductService;
+import com.situ.mall.vo.ProductSearchCondition;
 
 @Controller
 @RequestMapping("/product")
@@ -50,5 +51,18 @@ public class PortalProductController {
 		map.put("stock", productStock);
 		System.out.println("productStock  :  " + productStock);
 		return map;
+	}
+
+	@RequestMapping("/searchProduct")
+	// @ResponseBody ServerResponse
+	public String searchProduct(ProductSearchCondition sc_name, Model model) {
+		List<Product> productList = productService.searchProduct(sc_name);
+		model.addAttribute("productList", productList);
+		if (null != productList && productList.size() != 0) {
+			return "product_list_page";
+			// return ServerResponse.createSuccess("查询成功", productList);
+		}
+		// return ServerResponse.createError("查询失败");
+		return "";
 	}
 }

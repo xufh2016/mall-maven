@@ -16,11 +16,11 @@
 	<div class="bg_color">
 		<div class="top_center">
 			<div class="left">
-				<span class="wel"> 欢迎来到靓淘！ </span>
+				<span class="wel"> 欢迎${CURRENT_USER.username}来到靓淘！ </span>
 			</div>
 			<div class="right">
 				<ul>
-					<li><a class="login" onclick="getLoginPage()"
+					<li><a class="login" href="${ctx}/user/getLoginPage.shtml" 
 						target="_blank">请登录</a></li>
 					<li><a href="register.html" target="_blank">快速注册</a></li>
 					<li><a class="collect" href="">我的收藏</a></li>
@@ -39,8 +39,8 @@
 			<img class="logo_img" src="${ctx}/static/front/img/LOGO.png" />
 		</div>
 		<div class="center">
-			<input class="btn1" type="text" value="洗面奶" /> <input class="btn2"
-				type="button" value="搜索" />
+			<input class="btn1" type="text" value="洗面奶" name="searchName" id="searchName"/> 
+			<input class="btn2" type="button" value="搜索" onclick="searchProduct()"/>
 			<ul class="nav">
 				<li><a href="" style="color: pink;">保湿 | </a></li>
 				<li><a href="">面膜 | </a></li>
@@ -522,13 +522,24 @@
 			$(".circle li").removeClass("current").eq(m).addClass("current");
 			$(".banner_box .banner").hide().eq(m).show();
 		})
-		function getLoginPage(){ 
-			window.location.href="${ctx}/user/getLoginPage.shtml";
-		}
 		function toCartPage(){
 			window.location.href="${ctx}/cart/getCartPage.shtml";
 		}
-
+		function searchProduct(){
+			var searchName=$("#searchName").val();
+		//	alert(searchName);
+			window.location.href="${ctx}/product/searchProduct.shtml?sc_name="+searchName;
+			/*  $.ajax({
+				url:'${ctx}/product/searchProduct.shtml',
+				dataType:'json',
+				data:{'sc_name':searchName},
+				 success:function(jsonData){
+					var productList=jsonData.data;
+					//alert(data);
+					window.location.href="${ctx}/product/productList.shtml"
+				} 
+			});  */
+		}
 		
 	</script>
 </body>

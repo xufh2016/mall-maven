@@ -58,21 +58,23 @@ public class OrderController {
 
 		Product product = null;
 		CartVO cartVO = CookieJsonConversion.cookieToObject(request);
-		List<CartItemVO> cartItemList = cartVO.getCartItemList();
-		Iterator<CartItemVO> iterator = cartItemList.iterator();
-		while (iterator.hasNext()) {
-			CartItemVO cartItem = (CartItemVO) iterator.next();
-			// 将没有勾选的cartItem移除
-			if (cartItem.getCheckStatus() == Const.CateItemCheckStatus.UNCHECKED) {
-				iterator.remove();
+		if (null != cartVO) {
+			List<CartItemVO> cartItemList = cartVO.getCartItemList();
+			Iterator<CartItemVO> iterator = cartItemList.iterator();
+			while (iterator.hasNext()) {
+				CartItemVO cartItem = (CartItemVO) iterator.next();
+				// 将没有勾选的cartItem移除
+				if (cartItem.getCheckStatus() == Const.CateItemCheckStatus.UNCHECKED) {
+					iterator.remove();
+				}
+				if (cartItem.getCheckStatus() == Const.CateItemCheckStatus.CHECKED) {
+					product = productService.selectProductByPrimaryKey(cartItem.getProduct().getId());
+					cartItem.setProduct(product);
+				}
 			}
-			if (cartItem.getCheckStatus() == Const.CateItemCheckStatus.CHECKED) {
-				product = productService.selectProductByPrimaryKey(cartItem.getProduct().getId());
-				cartItem.setProduct(product);
-			}
+			// 将cartVO存到域对象中，以便页面中使用
+			model.addAttribute("cartVO", cartVO);
 		}
-		// 将cartVO存到域对象中，以便页面中使用
-		model.addAttribute("cartVO", cartVO);
 		return "prepareorder";
 	}
 
@@ -136,13 +138,14 @@ public class OrderController {
 		User user = (User) session.getAttribute(Const.CURRENT_USER);
 		Integer userId = user.getId();
 		// 根据用户Id获得该用户的所有订单信息(order表中)
-//		orderService.selectTowCategory
+		// orderService.selectTowCategory
 		List<Orders> orderList = orderService.selectOrdersByUserid(userId);
 		// 根据用户id获取该用户的所有订单项（orderItem表）
 		List<OrderItem> orderItemList = orderItemService.selectItemsByUserid(userId);
-		//通过用户名得到shipping集合，遍历集合获取shipping_id，然后再得到接货人信息
-		//List<Shipping> shippings = shoppingService.selectShippingInfoByuserId(userId);
-		
+		// 通过用户名得到shipping集合，遍历集合获取shipping_id，然后再得到接货人信息
+		// List<Shipping> shippings =
+		// shoppingService.selectShippingInfoByuserId(userId);
+
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderItemList", orderItemList);
 		return "dingdan";

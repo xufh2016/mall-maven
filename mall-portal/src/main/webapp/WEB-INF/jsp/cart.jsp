@@ -17,7 +17,7 @@
 		<div class="bg_color">
 			<div class="top_center">
 				<div class="left">
-					<span class="wel">欢迎来到靓淘网！</span>
+					<span class="wel">欢迎${CURRENT_USER.username}来到靓淘网！</span>
 				</div>
 				<div class="right">
 					<ul>
@@ -49,7 +49,7 @@
 		</div>
 		<div class="logo_center">
 			<div class="left">
-				<img class="logo_img" src="${ctx}/static/front/img/LOGO.png" />
+				<a href="${ctx}/index.shtml"><img class="logo_img" src="${ctx}/static/front/img/LOGO.png" /></a>
 				<span class="car_text">购物车</span>
 			</div>
 			<div class="right">
@@ -417,8 +417,14 @@
 			//跳转到结算页面
 			function toAddOrder(){
 				//获得总共的checkbox的数量
+				var name='${CURRENT_USER.username}';
+				if(name!=''){
+					window.location.href = '${ctx}/order/getOrderPage.shtml';
+					
+				}
 				var checkboxes=$('input[name=selectCheckbox]');
 				var uncheckboxes=$('input[name=selectCheckbox]').not("input:checked");
+				
 				var user='${CURRENT_USER}';
 				if(checkboxes.length==uncheckboxes.length){
 					layer.open({
@@ -427,21 +433,22 @@
 					});
 					//alert("您尚未选择任何商品");
 				}else{
-						if(user==''){
-							layer.open({
-								type : 1,
-								title : '登录',
-								offset : '50px',
-								area : ['400px','500px'],
-								content : $('#loginForm')
-							});
-						}else{
-							window.location.href = '${ctx}/order/getOrderPage.shtml';
-						}
+					if(user==''){
+						layer.open({
+							type : 1,
+							title : '登录',
+							offset : '50px',
+							area : ['400px','500px'],
+							content : $('#loginForm')
+						});
+					}else{
+						window.location.href = '${ctx}/order/getOrderPage.shtml';
+					}
 				}
 			}
 			//登录验证
 			function login(){
+				
 				var username=$("#username").val();
 				var password=$("#password").val();
 				//1.1、验证用户名是否为空

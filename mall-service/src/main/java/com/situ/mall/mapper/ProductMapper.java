@@ -38,5 +38,4 @@ public interface ProductMapper {
 
 	Integer getProductStock(Integer productId);
 
-	//int add(Product product);
 }

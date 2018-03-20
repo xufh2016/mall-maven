@@ -108,4 +108,12 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.getProductStock( productId);
 	}
 
+	@Override
+	public List<Product> searchProduct(ProductSearchCondition searchName) {
+		
+		// TODO Auto-generated method stub
+		return productMapper.pageList(searchName);
+		//return null;
+	}
+
 }

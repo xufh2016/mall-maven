@@ -242,6 +242,18 @@
 		WHERE category_id = #{categoryId};
 	</select>
 	
+	<select id="selectByProductName" parameterType="com.situ.mall.vo.ProductSearchCondition"
+		resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM product
+		<where>
+			<if test="sc_name!=null">
+				and name like concat('%',#{sc_name},'%')
+			</if>
+		</where>
+	</select>
+
 	<select id="selectProductByPrimaryKey" parameterType="int"
 		resultMap="BaseResultMap">
 		SELECT
@@ -249,10 +261,9 @@
 		FROM product
 		WHERE id = #{productId};
 	</select>
-	
+
 	<!-- 获取商品的库存量 -->
-	<select id="getProductStock" parameterType="int"
-		resultType="int">
+	<select id="getProductStock" parameterType="int" resultType="int">
 		SELECT
 		stock
 		FROM product

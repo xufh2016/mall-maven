@@ -38,4 +38,6 @@ public interface IProductService {
 
 	/* Integer getTopCategoryIdById(Integer id); */
 	Integer getProductStock(Integer productId);
+
+	List<Product> searchProduct(ProductSearchCondition sc_name);
 }

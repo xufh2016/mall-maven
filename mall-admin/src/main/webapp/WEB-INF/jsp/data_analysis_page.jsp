@@ -13,7 +13,6 @@
     
 </head>
 <body>
-	数据统计页面
     <div id="main" style="width: 600px;height:400px;"></div>
     <script>
 		$(function() {

@@ -29,36 +29,36 @@
 		<div class="banner">
 			<img class="banner_img" src="${ctx}/static/front/img/beijing.png" />
 			<div class="banner_center">
-				<div class="login">
-					<form id="loginform">
-						<ul>
-							<li class="login_title_1">
-								<a href="">密码登录</a>
-
-							</li>
-							<li class="login_title_2">
-								<a href="">扫码登录</a>
-							</li>
-							<li>
-								<input class="login_user" name="username"   type="text" placeholder="会员名/邮箱/手机号" />
-								<input class="login_password" name="password" type="password" placeholder="密码" />
-								<input class="login_btn" type="button" value="登录" onclick="login()"/>
-							</li>
-							<li class="login_select">
-								<a class="weibo" href="">微博登录</a>
-								<a class="zhifubao" href="">支付宝登录</a><br />
-							</li>
-							<li class="renmenber_user">
-								<input type="checkbox" value="remer_user" id="remer_user" />
-								<label for="remer_user">记住用户名</label>
-							</li>
-							<li class="login_bottom">
-								<a href="">忘记密码</a>
-								<a href="">免费注册</a>
-							</li>
-						</ul>
-					</form>
-				</div>
+				<div class="login" id="loginForm">
+			<form id="login-form">
+				<ul>
+					<li class="login_title_1">
+						<a href="">密码登录</a>
+	
+					</li>
+					<li class="login_title_2">
+						<a href="">扫码登录</a>
+					</li>
+					<li>
+						<input id="username" name="username" class="login_user" type="text" placeholder="会员名/邮箱/手机号" />
+						<input id="password" name="password" class="login_password" type="password" placeholder="密码" />
+						<input class="login_btn" type="button" onclick="login()" value="登录" />
+					</li>
+					<li class="login_select">
+						<a class="weibo" href="">微博登录</a>
+						<a class="zhifubao" href="">支付宝登录</a><br />
+					</li>
+					<li class="renmenber_user">
+						<input type="checkbox" value="remer_user" id="remer_user" />
+						<label for="remer_user">记住用户名</label>
+					</li>
+					<li class="login_bottom">
+						<a onclick="forgetPassword()">忘记密码</a>
+						<a onclick="toRegisterPage()">免费注册</a>
+					</li>
+				</ul>
+			</form>
+		</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -120,28 +120,22 @@
 			COPYRIGHT 2010-2017 北京创锐文化传媒有限公司 JUMEI.COM 保留一切权利. 客服热线：400-123-888888<br /> 京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
 		<script>
-		layui.use(['layer'], function(){
-			  var layer = layui.layer;
-			});
-		
-		//添加失去焦点事件
-		/* function checksession(){
-			//var username=$("#username").val();
-			var seesionusername='${user.username}';
-			if($.trim(seesionusername) != '')
-				window.location.href = '${ctx}/index.shtml';	
-		} */
-		//登录验证
-		function login(){
-			var seesionusername='${user.username}';
-			if($.trim(seesionusername) == ''){
+			layui.use(['layer'], function(){
+				  var layer = layui.layer;
+				});
+			//登录验证
+			function login(){
 				var username=$("#username").val();
 				var password=$("#password").val();
 				//1.1、验证用户名是否为空
+				var name='${CURRENT_USER.username}';
+				if(''!=name)
+					return;
 	    		if(util.isNull(username)) {
 	    			mylayer.errorMsg("用户名不能为空");
 	    			return;
 	    		}
+	    		
 	    		//1.2、是否合法：4-8数字或字母
 	    		if(!isUsernameValid(username)) {
 	    			mylayer.errorMsg("用户名不合法，4-8数字或字母");
@@ -157,23 +151,23 @@
 	    			url:"${ctx}/user/login.shtml",
 	    			type:'POST',
 	    			dataType:'json',
-	    			data:$("#loginform").serialize(),
+	    			data:$("#login-form").serialize(),
 	    			success:function(data){
 	    				if(data.code == util.SUCCESS) {
 	    					mylayer.success(data.msg);
-	    					window.location.href = '${ctx}/index.shtml';
+	    					window.location.href = '${ctx}/cart/getCartPage.shtml';
 	    				} else {
 	    					mylayer.errorMsg(data.msg);
 	    				}
 	    			}
 	    		});
-			}else{
-				mylayer.success("已经登录了！！！！！");
-				window.location.href = '${ctx}/index.shtml';
 			}
-		
-		}
-		
+			
+			//检查用户名是否匹配
+			function isUsernameValid(value) {
+	    		var pattern = /^[0-9a-zA-Z]{4,8}$/;
+	    		return pattern.test(value);
+	    	} 
 		</script>
 		
 		
